@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "gql": "graphql-codegen --config codegen.yml"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,10 @@
     "@angular/platform-browser": "~11.2.11",
     "@angular/platform-browser-dynamic": "~11.2.11",
     "@angular/router": "~11.2.11",
+    "@apollo/client": "^3.0.0",
+    "apollo-angular": "^2.6.0",
+    "graphql": "^15.0.0",
+    "graphql-codegen": "^0.4.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -29,6 +34,8 @@
     "@angular-devkit/build-angular": "~0.1102.10",
     "@angular/cli": "~11.2.10",
     "@angular/compiler-cli": "~11.2.11",
+    "@graphql-codegen/cli": "1.21.6",
+    "@graphql-codegen/typescript": "1.22.4",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
