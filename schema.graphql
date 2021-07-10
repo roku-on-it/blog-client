@@ -10,7 +10,7 @@ type Category {
   deletedAt: DateTime
   id: ID!
   name: String!
-  posts(filter: ListPost): [Post!]
+  posts(filter: ListPost): PostList
   slug: String!
   updatedAt: DateTime!
 }
@@ -45,12 +45,17 @@ type Post {
   user: User!
 }
 
+type PostList {
+  items: [Post!]!
+  total: Float!
+}
+
 type Query {
   categories(filter: ListCategory): [Category!]!
   category(id: ID!): Category!
   me: User!
   post(id: ID!): Post!
-  posts(filter: ListPost): [Post!]!
+  posts(filter: ListPost): PostList!
   user(id: ID!): User!
   users(filter: ListUser): [User!]!
 }
@@ -65,7 +70,7 @@ type User {
   deletedAt: DateTime
   fullName: String!
   id: ID!
-  posts(filter: ListPost): [Post!]
+  posts(filter: ListPost): PostList
   role: UserRole!
   updatedAt: DateTime!
   username: String!

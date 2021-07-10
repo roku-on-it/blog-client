@@ -19,7 +19,7 @@ export type Category = {
   deletedAt?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  posts?: Maybe<Array<Post>>;
+  posts?: Maybe<PostList>;
   slug: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -172,13 +172,19 @@ export type Post = {
   user: User;
 };
 
+export type PostList = {
+  __typename?: 'PostList';
+  items: Array<Post>;
+  total: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
   categories: Array<Category>;
   category: Category;
   me: User;
   post: Post;
-  posts: Array<Post>;
+  posts: PostList;
   user: User;
   users: Array<User>;
 };
@@ -263,7 +269,7 @@ export type User = {
   deletedAt?: Maybe<Scalars['DateTime']>;
   fullName: Scalars['String'];
   id: Scalars['ID'];
-  posts?: Maybe<Array<Post>>;
+  posts?: Maybe<PostList>;
   role: UserRole;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
