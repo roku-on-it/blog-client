@@ -1,0 +1,11 @@
+<mat-form-field color="accent">
+  <mat-label>Search Post</mat-label>
+  <input [formControl]="queryFilter" autocomplete="off" matInput />
+  <mat-error *ngIf="queryFilter.invalid">
+    Search value must be at least 3 characters long
+  </mat-error>
+</mat-form-field>
+
+<pre>
+  {{ (queryRef.valueChanges | async)?.data?.category?.posts | json }}
+</pre>

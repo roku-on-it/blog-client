@@ -1,0 +1,46 @@
+:host {
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  mat-drawer-container {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+
+    mat-drawer {
+      min-width: 200px;
+
+      mat-nav-list {
+        h3 {
+          padding: 20px;
+        }
+
+        mat-form-field {
+          width: 100%;
+          text-align: center;
+        }
+
+        li {
+          ul {
+            padding: 0;
+
+            mat-icon {
+              padding-left: 1em;
+            }
+          }
+        }
+      }
+    }
+
+    mat-drawer-content {
+      display: flex;
+      flex-direction: column;
+
+      .router-wrapper {
+        flex: 1;
+        overflow-y: auto;
+      }
+    }
+  }
+}
