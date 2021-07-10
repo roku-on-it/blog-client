@@ -50,7 +50,6 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     // Not killing the subscription here because layout component is always mounted
-    this.queryFilter.markAsTouched();
     this.queryFilter.valueChanges
       .pipe(
         debounceTime(this.debounce),

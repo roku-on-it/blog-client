@@ -23,7 +23,7 @@
           autocomplete="off"
           matInput
         />
-        <mat-error *ngIf="queryFilter.invalid">
+        <mat-error *ngIf="queryFilter.invalid && queryFilter.touched">
           Search value must be at least 3 characters long
         </mat-error>
       </mat-form-field>
@@ -42,7 +42,7 @@
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <mat-toolbar>
+    <mat-toolbar class="mat-elevation-z16">
       <button (click)="drawer.toggle()" mat-icon-button>
         <mat-icon>lunch_dining</mat-icon>
       </button>
