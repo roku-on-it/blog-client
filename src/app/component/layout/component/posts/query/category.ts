@@ -4,20 +4,24 @@ export const CATEGORY = gql`
   query category($id: ID!, $filter: ListPost) {
     category(id: $id) {
       posts(filter: $filter) {
-        id
-        title
-        content
-        createdAt
-        updatedAt
-        slug
-        sources
-        category {
-          name
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          slug
+          sources
+          category {
+            name
+          }
+          user {
+            fullName
+            avatarUrl
+          }
         }
-        user {
-          fullName
-          avatarUrl
-        }
+
+        total
       }
     }
   }

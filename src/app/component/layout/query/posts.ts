@@ -3,20 +3,24 @@ import { gql } from 'apollo-angular';
 export const POSTS = gql`
   query posts($filter: ListPost) {
     posts(filter: $filter) {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-      slug
-      sources
-      category {
-        name
+      items {
+        id
+        title
+        content
+        createdAt
+        updatedAt
+        slug
+        sources
+        category {
+          name
+        }
+        user {
+          fullName
+          avatarUrl
+        }
       }
-      user {
-        fullName
-        avatarUrl
-      }
+
+      total
     }
   }
 `;
