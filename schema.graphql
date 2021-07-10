@@ -60,11 +60,12 @@ type RegisterResponse {
 }
 
 type User {
+  avatarUrl: String
   createdAt: DateTime!
   deletedAt: DateTime
   fullName: String!
   id: ID!
-  posts: [Post!]
+  posts(filter: ListPost): [Post!]
   role: UserRole!
   updatedAt: DateTime!
   username: String!
@@ -89,6 +90,7 @@ input CreatePost {
 }
 
 input CreateUser {
+  avatarUrl: String
   confirmPassword: String!
   fullName: String!
   password: String!
@@ -108,17 +110,17 @@ input DeleteUser {
 }
 
 input ListCategory {
-  query: String
+  query: String = ""
 }
 
 input ListPost {
   pageIndex: Float
   pageSize: Float
-  query: String
+  query: String = ""
 }
 
 input ListUser {
-  query: String
+  query: String = ""
 }
 
 input LoginInput {
@@ -136,6 +138,7 @@ input UpdateCategory {
 }
 
 input UpdateMe {
+  avatarUrl: String
   fullName: String
   username: String
 }
@@ -149,6 +152,7 @@ input UpdatePost {
 }
 
 input UpdateUser {
+  avatarUrl: String
   fullName: String
   id: ID!
   role: UserRole

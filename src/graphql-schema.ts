@@ -41,6 +41,7 @@ export type CreatePost = {
 };
 
 export type CreateUser = {
+  avatarUrl?: Maybe<Scalars['String']>;
   confirmPassword: Scalars['String'];
   fullName: Scalars['String'];
   password: Scalars['String'];
@@ -227,6 +228,7 @@ export type UpdateCategory = {
 };
 
 export type UpdateMe = {
+  avatarUrl?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
 };
@@ -240,6 +242,7 @@ export type UpdatePost = {
 };
 
 export type UpdateUser = {
+  avatarUrl?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   role?: Maybe<UserRole>;
@@ -255,6 +258,7 @@ export type UpdateUserPassword = {
 
 export type User = {
   __typename?: 'User';
+  avatarUrl?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   deletedAt?: Maybe<Scalars['DateTime']>;
   fullName: Scalars['String'];
@@ -263,6 +267,11 @@ export type User = {
   role: UserRole;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
+};
+
+
+export type UserPostsArgs = {
+  filter?: Maybe<ListPost>;
 };
 
 export enum UserRole {
