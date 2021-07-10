@@ -23,8 +23,9 @@ interface NavItem {
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  queryRef!: QueryRef<Pick<Query, 'categories'>>;
+  queryRef!: QueryRef<Pick<Query, 'categories'>, QueryCategoriesArgs>;
   queryFilter = new FormControl('', [Validators.minLength(3)]);
+  readonly result: Observable<Category[]>;
   readonly staticRoutes: NavItem[] = [
     {
       label: 'Home',
@@ -32,7 +33,6 @@ export class LayoutComponent implements OnInit {
       icon: 'home',
     },
   ];
-  readonly result: Observable<Category[]>;
   private readonly debounce = 400;
 
   constructor(private readonly apollo: Apollo) {
@@ -61,19 +61,5 @@ export class LayoutComponent implements OnInit {
         )
       )
       .subscribe(($data) => $data);
-  }
-
-  logout(): void {
-    window.location.reload();
-  }
-
-  runQuery() {
-    this.queryRef
-      .setVariables({
-        filter: {
-          query: this.queryFilter,
-        },
-      })
-      .catch(() => null);
   }
 }
