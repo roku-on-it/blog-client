@@ -15,6 +15,7 @@ export const POSTS = gql`
       }
       user {
         fullName
+        avatarUrl
       }
     }
   }

@@ -16,6 +16,7 @@ export const CATEGORY = gql`
         }
         user {
           fullName
+          avatarUrl
         }
       }
     }
