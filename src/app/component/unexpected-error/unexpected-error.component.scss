@@ -1,0 +1,43 @@
+:host {
+  div {
+    text-align: center;
+    height: 100%;
+    background: #303030;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+
+      h1 {
+        background: #ff9800;
+        font-size: 3em;
+        display: flex;
+        height: 50px;
+        padding: 0.5em;
+        width: 50px;
+        border-radius: 50px;
+        font-family: "VT323", monospace;
+        color: white;
+        align-items: center;
+      }
+
+      h2 {
+        color: #a5a5a5;
+        font-family: "Source Code Pro", monospace;
+      }
+
+      span {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+
+        a {
+          font-family: "Source Code Pro", monospace;
+        }
+      }
+    }
+  }
+}
