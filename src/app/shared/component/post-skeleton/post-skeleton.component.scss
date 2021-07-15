@@ -1,0 +1,47 @@
+:host {
+  width: 100%;
+
+  .skeleton-item {
+    width: auto;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 90px;
+  }
+  .avatar-title {
+    width: 500px;
+    padding: 10px;
+    height: 80px;
+  }
+
+  .first-section-wrapper,
+  .second-section-wrapper {
+    width: 100%;
+    height: auto;
+    flex: 1;
+  }
+
+  .first-section-wrapper,
+  .second-section-wrapper {
+    width: 100%;
+    height: auto;
+    flex: 1;
+  }
+
+  .first-section-wrapper {
+    display: inline-flex;
+  }
+
+  .second-section-wrapper {
+    margin-top: 30px;
+  }
+
+  .wrapper {
+    width: 100%;
+    flex: 1;
+  }
+}

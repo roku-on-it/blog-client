@@ -1,11 +1,54 @@
 <mat-form-field color="accent">
-  <mat-label>Search Post</mat-label>
-  <input [formControl]="queryFilter" autocomplete="off" matInput />
-  <mat-error *ngIf="queryFilter.invalid">
+  <mat-label>Search post</mat-label>
+  <input [formControl]="searchString" autocomplete="off" matInput />
+  <mat-icon matSuffix>search</mat-icon>
+  <mat-error *ngIf="searchString.invalid && searchString.touched">
     Search value must be at least 3 characters long
   </mat-error>
 </mat-form-field>
 
-<pre>
-  {{ (queryRef.valueChanges | async)?.data?.category?.posts | json }}
-</pre>
+<ng-container *ngIf="loading; then isLoading; else loaded"></ng-container>
+
+<ng-template #isLoading>
+  <app-post-skeleton></app-post-skeleton>
+</ng-template>
+<ng-template #loaded>
+  <mat-card *ngFor="let post of result | async">
+    <mat-card-header>
+      <img
+        [src]="post.user.avatarUrl"
+        mat-card-avatar
+        alt="Avatar of the post author"
+      />
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <mat-card-subtitle>Author: {{ post.user.fullName }}</mat-card-subtitle>
+      <mat-card-subtitle
+        >Date posted:
+        {{
+          post.createdAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle
+      >
+      <mat-card-subtitle *ngIf="post.createdAt !== post.updatedAt"
+        >Last update on:
+        {{
+          post.updatedAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ post.content }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<span class="spacer"></span>
+
+<mat-paginator
+  (page)="onPageChange($event)"
+  *ngIf="searchString.value.length < 3 && (result | async)?.length"
+  [length]="(category | async)?.posts?.total"
+  [pageSizeOptions]="[5, 10, 25]"
+  class="mat-elevation-z16"
+></mat-paginator>

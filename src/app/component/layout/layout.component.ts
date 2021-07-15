@@ -8,6 +8,7 @@ import {
   distinctUntilChanged,
   map,
   switchMap,
+  tap,
 } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -23,8 +24,8 @@ interface NavItem {
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  queryRef!: QueryRef<Pick<Query, 'categories'>, QueryCategoriesArgs>;
-  queryFilter = new FormControl('', [Validators.minLength(3)]);
+  searchString = new FormControl('', [Validators.minLength(3)]);
+  loading!: boolean;
   readonly result: Observable<Category[]>;
   readonly staticRoutes: NavItem[] = [
     {
@@ -33,6 +34,7 @@ export class LayoutComponent implements OnInit {
       icon: 'home',
     },
   ];
+  private queryRef!: QueryRef<Pick<Query, 'categories'>, QueryCategoriesArgs>;
   private readonly debounce = 400;
 
   constructor(private readonly apollo: Apollo) {
@@ -44,21 +46,27 @@ export class LayoutComponent implements OnInit {
     });
 
     this.result = this.queryRef.valueChanges.pipe(
-      map((result) => result.data?.categories)
+      map((result) => result.data?.categories),
+      tap(() => (this.loading = false))
     );
   }
 
   ngOnInit(): void {
     // Not killing the subscription here because layout component is always mounted
-    this.queryFilter.valueChanges
+    this.searchString.valueChanges
       .pipe(
         debounceTime(this.debounce),
         distinctUntilChanged(),
-        switchMap(async (query) =>
-          this.queryRef.setVariables({
+        switchMap((query: string) => {
+          this.loading = true;
+          return this.queryRef.setVariables({
             filter: { query },
-          })
-        )
+          });
+        }),
+        switchMap(({ data }: any) => {
+          this.loading = false;
+          return data.categories;
+        })
       )
       .subscribe(($data) => $data);
   }

@@ -45,6 +45,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.spacer {
+  flex: 1 1;
+}
+
 .mat-success {
   color: mat-color($blog-client-success);
 }

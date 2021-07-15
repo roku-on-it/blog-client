@@ -11,6 +11,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PostsModule } from 'src/app/component/layout/component/posts/posts.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -25,6 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTreeModule,
     MatInputModule,
     ReactiveFormsModule,
+    PostsModule,
+    MatProgressBarModule,
   ],
 })
 export class LayoutModule {}

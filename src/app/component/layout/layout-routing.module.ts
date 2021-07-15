@@ -13,12 +13,26 @@ const routes: Routes = [
           import('./component/home/home.module').then((m) => m.HomeModule),
       },
       {
-        path: ':id',
+        path: 'categories/:id',
         loadChildren: () =>
           import('./component/posts/posts.module').then((m) => m.PostsModule),
       },
+      { path: '', redirectTo: 'home' },
     ],
   },
+  {
+    path: '404',
+    loadChildren: () =>
+      import('../not-found/not-found.module').then((m) => m.NotFoundModule),
+  },
+  {
+    path: 'oops',
+    loadChildren: () =>
+      import('../unexpected-error/unexpected-error.module').then(
+        (m) => m.UnexpectedErrorModule
+      ),
+  },
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({

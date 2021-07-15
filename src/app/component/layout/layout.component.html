@@ -15,24 +15,22 @@
       </a>
       <mat-divider></mat-divider>
       <h3>Categories</h3>
-      <mat-form-field color="accent">
+      <mat-form-field color="accent" appearance="fill">
         <mat-label>Search category</mat-label>
-        <input
-          [formControl]="queryFilter"
-          autocomplete="off"
-          matInput
-        />
-        <mat-error *ngIf="queryFilter.invalid && queryFilter.touched">
+        <input [formControl]="searchString" autocomplete="off" matInput />
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="searchString.invalid && searchString.touched">
           Search value must be at least 3 characters long
         </mat-error>
       </mat-form-field>
+      <mat-progress-bar *ngIf="loading" color="accent" mode="query"></mat-progress-bar>
       <a
         #routerLinkActiveInstance="routerLinkActive"
         (click)="drawer.close()"
         *ngFor="let category of result | async"
         [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
         [class.list-item-active]="routerLinkActiveInstance.isActive"
-        [routerLink]="category.id"
+        [routerLink]="['categories', category.slug + '-' + category.id]"
         mat-list-item
         routerLinkActive
       >
