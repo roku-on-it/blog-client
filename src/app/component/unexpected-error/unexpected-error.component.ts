@@ -23,6 +23,5 @@ export class UnexpectedErrorComponent implements OnInit {
 
   constructor() {}
 
-  //the page where you encountered the problem
   ngOnInit(): void {}
 }
