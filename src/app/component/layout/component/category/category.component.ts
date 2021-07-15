@@ -11,7 +11,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
-import { CATEGORY } from 'src/app/component/layout/component/posts/query/category';
+import { CATEGORY } from 'src/app/component/layout/component/category/query/category';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, throwError } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -19,11 +19,11 @@ import { Title } from '@angular/platform-browser';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss'],
 })
-export class PostsComponent implements OnInit {
+export class CategoryComponent implements OnInit {
   searchString = new FormControl('', [Validators.minLength(3)]);
   result!: Observable<Post[] | undefined>;
   category!: Observable<Category>;

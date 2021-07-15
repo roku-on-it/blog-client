@@ -15,7 +15,9 @@ const routes: Routes = [
       {
         path: 'categories/:id',
         loadChildren: () =>
-          import('./component/posts/posts.module').then((m) => m.PostsModule),
+          import(
+            'src/app/component/layout/component/category/category.module'
+          ).then((m) => m.CategoryModule),
       },
       { path: '', redirectTo: 'home' },
     ],

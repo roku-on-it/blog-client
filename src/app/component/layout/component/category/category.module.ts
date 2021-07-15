@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PostsRoutingModule } from 'src/app/component/layout/component/posts/posts-routing.module';
-import { PostsComponent } from 'src/app/component/layout/component/posts/posts.component';
+import { CategoryRoutingModule } from 'src/app/component/layout/component/category/category-routing.module';
+import { CategoryComponent } from 'src/app/component/layout/component/category/category.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -14,10 +14,10 @@ import { MatListModule } from '@angular/material/list';
 import { PostSkeletonComponent } from 'src/app/shared/component/post-skeleton/post-skeleton.component';
 
 @NgModule({
-  declarations: [PostsComponent, PostSkeletonComponent],
+  declarations: [CategoryComponent, PostSkeletonComponent],
   imports: [
     CommonModule,
-    PostsRoutingModule,
+    CategoryRoutingModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -27,6 +27,6 @@ import { PostSkeletonComponent } from 'src/app/shared/component/post-skeleton/po
     MatIconModule,
     MatListModule,
   ],
-  exports: [PostsComponent],
+  exports: [CategoryComponent],
 })
-export class PostsModule {}
+export class CategoryModule {}

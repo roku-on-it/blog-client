@@ -11,7 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PostsModule } from 'src/app/component/layout/component/posts/posts.module';
+import { CategoryModule } from 'src/app/component/layout/component/category/category.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
@@ -27,7 +27,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatTreeModule,
     MatInputModule,
     ReactiveFormsModule,
-    PostsModule,
+    CategoryModule,
     MatProgressBarModule,
   ],
 })
