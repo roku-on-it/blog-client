@@ -13,7 +13,7 @@ export class UnexpectedErrorComponent implements OnInit {
     '&body=' +
     'Steps%20to%20reproduce%20the%20issue:\n' +
     '%0A' +
-    '(e.g.%2C%20 1: I selected the Technology category)' +
+    '(e.g.%2C%20 1: I selected the xyz category)' +
     '%0A' +
     '(e.g.%2C%20 2: I clicked the Read post button)' +
     '%0A%0A%0A' +
