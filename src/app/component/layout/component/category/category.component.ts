@@ -33,10 +33,10 @@ export class CategoryComponent implements OnInit {
   private id?: number;
 
   constructor(
-    private readonly apollo: Apollo,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router,
-    private readonly title: Title
+    private apollo: Apollo,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private title: Title
   ) {
     activatedRoute.params.subscribe(({ id }) => {
       id = id.slice(id.lastIndexOf('-') + 1);
@@ -56,15 +56,13 @@ export class CategoryComponent implements OnInit {
           return data;
         }),
         catchError((err) => {
-          if (err.graphQLErrors[0].status === 404) {
+          if (err?.graphQLErrors[0]?.status === 404) {
             this.router.navigateByUrl('404');
-
             return throwError(err.message);
           }
 
-          this.router.navigateByUrl('oops');
-
-          return throwError(err);
+          this.router.navigateByUrl('oops', { state: { err } });
+          return throwError(err.message);
         })
       );
 

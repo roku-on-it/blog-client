@@ -12,10 +12,7 @@ export const CATEGORY = gql`
           createdAt
           updatedAt
           slug
-          sources
-          category {
-            name
-          }
+
           user {
             fullName
             avatarUrl
