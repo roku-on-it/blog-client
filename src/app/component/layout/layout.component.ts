@@ -4,13 +4,15 @@ import { Category, Query, QueryCategoriesArgs } from 'src/graphql-schema';
 import { CATEGORIES } from 'src/app/component/layout/query/categories';
 import { FormControl, Validators } from '@angular/forms';
 import {
+  catchError,
   debounceTime,
   distinctUntilChanged,
   map,
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface NavItem {
   label: string;
@@ -37,7 +39,7 @@ export class LayoutComponent implements OnInit {
   private queryRef!: QueryRef<Pick<Query, 'categories'>, QueryCategoriesArgs>;
   private readonly debounce = 400;
 
-  constructor(private readonly apollo: Apollo) {
+  constructor(private apollo: Apollo, private router: Router) {
     this.queryRef = apollo.watchQuery<
       Pick<Query, 'categories'>,
       QueryCategoriesArgs
@@ -47,7 +49,11 @@ export class LayoutComponent implements OnInit {
 
     this.result = this.queryRef.valueChanges.pipe(
       map((result) => result.data?.categories),
-      tap(() => (this.loading = false))
+      tap(() => (this.loading = false)),
+      catchError((err) => {
+        this.router.navigateByUrl('oops', { state: { err } });
+        return throwError(err.message);
+      })
     );
   }
 

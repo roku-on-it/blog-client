@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-unexpected-error',
   templateUrl: './unexpected-error.component.html',
@@ -21,7 +23,35 @@ export class UnexpectedErrorComponent implements OnInit {
     document.location.origin +
     '/categories/technology-6812548705698661376)';
 
-  constructor() {}
+  constructor(private router: Router, private snackBar: MatSnackBar) {
+    this.handleHttpFailure(
+      router.getCurrentNavigation()?.extras.state?.err,
+      snackBar
+    );
+  }
 
   ngOnInit(): void {}
+
+  handleHttpFailure = (err: any, snackBar: MatSnackBar) => {
+    if (null != err?.message) {
+      if (/http failure/gi.test(err?.message)) {
+        snackBar.open(
+          'Server is not responding. ' +
+            'Please check your internet connection or try again later',
+          'OK',
+          {
+            panelClass: ['dialog-error'],
+          }
+        );
+      } else {
+        snackBar.open(err?.message, 'OK', {
+          panelClass: ['dialog-error'],
+        });
+      }
+
+      return throwError(err);
+    }
+
+    return throwError(err);
+  };
 }
