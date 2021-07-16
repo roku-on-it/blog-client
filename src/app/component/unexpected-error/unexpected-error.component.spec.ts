@@ -8,9 +8,8 @@ describe('UnexpectedErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnexpectedErrorComponent ]
-    })
-    .compileComponents();
+      declarations: [UnexpectedErrorComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

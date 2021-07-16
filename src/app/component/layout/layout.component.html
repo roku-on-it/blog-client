@@ -23,7 +23,11 @@
           Search value must be at least 3 characters long
         </mat-error>
       </mat-form-field>
-      <mat-progress-bar *ngIf="loading" color="accent" mode="query"></mat-progress-bar>
+      <mat-progress-bar
+        *ngIf="loading"
+        color="accent"
+        mode="query"
+      ></mat-progress-bar>
       <a
         #routerLinkActiveInstance="routerLinkActive"
         (click)="drawer.close()"

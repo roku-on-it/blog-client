@@ -6,6 +6,6 @@ const routes: Routes = [{ path: '', component: UnexpectedErrorComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UnexpectedErrorRoutingModule { }
+export class UnexpectedErrorRoutingModule {}
