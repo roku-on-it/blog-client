@@ -40,13 +40,13 @@ export class UnexpectedErrorComponent implements OnInit {
           data:
             'Server is not responding. ' +
             'Please check your internet connection or try again later',
-          duration: 1000000,
+          duration: 10000,
           panelClass: ['snack-error'],
         });
       } else {
         snackBar.openFromComponent(SnackBarComponent, {
           data: err?.message,
-          duration: 1000000,
+          duration: 10000,
         });
       }
 

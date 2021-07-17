@@ -1,4 +1,20 @@
 ::ng-deep .snack-error {
+  max-width: 100%;
   background-color: #222222;
+  border-left: #ef5350 2px solid;
   color: #ef5350;
+  button {
+    color: white;
+  }
+}
+
+:host {
+  div {
+    display: flex;
+    align-items: center;
+
+    mat-spinner {
+      padding: 0 1em 0 .5em;
+    }
+  }
 }
