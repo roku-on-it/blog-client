@@ -1,7 +1,7 @@
 <form [formGroup]="filterForm">
   <mat-form-field color="accent">
     <mat-label>Search post</mat-label>
-    <input autocomplete="off" formControlName="searchString" matInput/>
+    <input autocomplete="off" formControlName="searchString" matInput />
     <mat-icon matSuffix>search</mat-icon>
     <mat-error
       *ngIf="
@@ -45,17 +45,25 @@
       <mat-card-title>{{ post.title }}</mat-card-title>
       <mat-card-subtitle>Author: {{ post.user.fullName }}</mat-card-subtitle>
       <mat-card-subtitle
-      >Date posted:
+        >Date posted:
         {{
-        post.createdAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
-        }}</mat-card-subtitle>
-      <mat-card-subtitle>Category: <a
-        [routerLink]="['../categories/', post.category.slug + '-' + post.category.id]">{{ post.category.name }}</a>
+          post.createdAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Category:
+        <a
+          [routerLink]="[
+            '../categories/',
+            post.category.slug + '-' + post.category.id
+          ]"
+          >{{ post.category.name }}</a
+        >
       </mat-card-subtitle>
       <mat-card-subtitle *ngIf="post.createdAt !== post.updatedAt"
-      >Last update on:
+        >Last update on:
         {{
-        post.updatedAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+          post.updatedAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
         }}</mat-card-subtitle
       >
     </mat-card-header>

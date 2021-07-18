@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { CategoryModule } from 'src/app/component/layout/component/category/category.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -25,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     CategoryModule,
     MatSelectModule,
+    MatButtonModule,
   ],
 })
 export class HomeModule {}
