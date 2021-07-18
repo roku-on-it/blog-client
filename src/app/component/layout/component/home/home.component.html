@@ -1,1 +1,81 @@
-<p>home works!</p>
+<form [formGroup]="filterForm">
+  <mat-form-field color="accent">
+    <mat-label>Search post</mat-label>
+    <input autocomplete="off" formControlName="searchString" matInput/>
+    <mat-icon matSuffix>search</mat-icon>
+    <mat-error
+      *ngIf="
+        filterForm.get('searchString')?.invalid &&
+        filterForm.get('searchString')?.touched
+      "
+    >
+      Search value must be at least 3 characters long
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Order by</mat-label>
+    <mat-select formControlName="field">
+      <mat-option value="title">Title</mat-option>
+      <mat-option value="createdAt">Date posted</mat-option>
+      <mat-option value="updatedAt">Date updated</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Direction</mat-label>
+    <mat-select formControlName="direction">
+      <mat-option value="ASC">Ascending</mat-option>
+      <mat-option value="DESC">Descending</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<ng-container *ngIf="loading; then isLoading; else loaded"></ng-container>
+
+<ng-template #isLoading>
+  <app-post-skeleton></app-post-skeleton>
+</ng-template>
+<ng-template #loaded>
+  <mat-card *ngFor="let post of result | async">
+    <mat-card-header>
+      <img
+        [src]="post.user.avatarUrl"
+        alt="Avatar of the post author"
+        mat-card-avatar
+      />
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <mat-card-subtitle>Author: {{ post.user.fullName }}</mat-card-subtitle>
+      <mat-card-subtitle
+      >Date posted:
+        {{
+        post.createdAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle>
+      <mat-card-subtitle>Category: <a
+        [routerLink]="['../categories/', post.category.slug + '-' + post.category.id]">{{ post.category.name }}</a>
+      </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="post.createdAt !== post.updatedAt"
+      >Last update on:
+        {{
+        post.updatedAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ post.content }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<span class="spacer"></span>
+
+<mat-paginator
+  (page)="onPageChange($event)"
+  *ngIf="
+    filterForm.controls.searchString.value.length < 3 &&
+    (result | async)?.length
+  "
+  [length]="total | async"
+  [pageSizeOptions]="[10, 25, 50]"
+  class="mat-elevation-z16"
+></mat-paginator>

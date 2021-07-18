@@ -7,6 +7,7 @@
         [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
         [class.list-item-active]="routerLinkActiveInstance.isActive"
         [routerLink]="route.path"
+        (click)="drawer.close()"
         mat-list-item
         routerLinkActive
       >

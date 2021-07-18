@@ -13,6 +13,8 @@ export const POSTS = gql`
         sources
         category {
           name
+          slug
+          id
         }
         user {
           fullName

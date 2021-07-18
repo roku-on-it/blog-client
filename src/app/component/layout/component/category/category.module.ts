@@ -27,6 +27,6 @@ import { PostSkeletonComponent } from 'src/app/shared/component/post-skeleton/po
     MatIconModule,
     MatListModule,
   ],
-  exports: [CategoryComponent],
+  exports: [CategoryComponent, PostSkeletonComponent],
 })
 export class CategoryModule {}
