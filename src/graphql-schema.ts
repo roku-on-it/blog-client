@@ -61,11 +61,18 @@ export type DeleteUser = {
   id: Scalars['ID'];
 };
 
+/** Order by direction, either ascending or descending */
+export enum Direction {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
 export type ListCategory = {
   query?: Maybe<Scalars['String']>;
 };
 
 export type ListPost = {
+  orderBy?: Maybe<OrderBy>;
   pageIndex?: Maybe<Scalars['Float']>;
   pageSize?: Maybe<Scalars['Float']>;
   query?: Maybe<Scalars['String']>;
@@ -156,6 +163,11 @@ export type MutationUpdatePostArgs = {
 
 export type MutationUpdateUserArgs = {
   payload: UpdateUser;
+};
+
+export type OrderBy = {
+  direction: Direction;
+  field: Scalars['String'];
 };
 
 export type Post = {

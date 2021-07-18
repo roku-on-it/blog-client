@@ -76,6 +76,12 @@ type User {
   username: String!
 }
 
+"Order by direction, either ascending or descending"
+enum Direction {
+  ASC
+  DESC
+}
+
 enum UserRole {
   Admin
   Mod
@@ -119,6 +125,7 @@ input ListCategory {
 }
 
 input ListPost {
+  orderBy: OrderBy
   pageIndex: Float
   pageSize: Float
   query: String = ""
@@ -131,6 +138,11 @@ input ListUser {
 input LoginInput {
   password: String!
   username: String!
+}
+
+input OrderBy {
+  direction: Direction!
+  field: String!
 }
 
 input RefInput {
