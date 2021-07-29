@@ -200,7 +200,7 @@ export type Query = {
   post: Post;
   posts: PostList;
   user: User;
-  users: Array<User>;
+  users: UserList;
 };
 
 
@@ -292,6 +292,12 @@ export type User = {
 
 export type UserPostsArgs = {
   filter?: Maybe<ListPost>;
+};
+
+export type UserList = {
+  __typename?: 'UserList';
+  items: Array<User>;
+  total: Scalars['Float'];
 };
 
 export enum UserRole {

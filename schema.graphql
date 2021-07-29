@@ -57,7 +57,7 @@ type Query {
   post(id: ID!): Post!
   posts(filter: ListPost): PostList!
   user(id: ID!): User!
-  users(filter: ListUser): [User!]!
+  users(filter: ListUser): UserList!
 }
 
 type RegisterResponse {
@@ -74,6 +74,11 @@ type User {
   role: UserRole!
   updatedAt: DateTime!
   username: String!
+}
+
+type UserList {
+  items: [User!]!
+  total: Float!
 }
 
 "Order by direction, either ascending or descending"
