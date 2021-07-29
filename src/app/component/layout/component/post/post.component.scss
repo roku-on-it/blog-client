@@ -1,0 +1,55 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  h1 {
+    padding: 1.5em;
+    text-align: center;
+  }
+
+  mat-expansion-panel {
+    border-top: 1px solid #c79c3c !important;
+    border-radius: 0 !important;
+  }
+
+  section {
+    mat-card {
+      border-bottom: 1px solid #c79c3c;
+      border-radius: 0;
+      mat-card-header {
+        mat-card-subtitle {
+          a {
+            color: #ff9800;
+            text-decoration: none;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+        }
+        mat-card-title {
+          span {
+            color: #cf9639;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    article {
+      padding: 1em 5em 1em 5em;
+      font-size: 1.4rem;
+      line-height: 1em;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    article {
+      color: green;
+      padding: 0.5em;
+      font-size: 1.1rem;
+      line-height: 1em;
+    }
+  }
+}

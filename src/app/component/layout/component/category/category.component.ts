@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { Category, Post, Query } from 'src/graphql-schema';
+import { Category, Query } from 'src/graphql-schema';
 import {
   catchError,
   debounceTime,
   distinctUntilChanged,
   map,
-  pluck,
+  shareReplay,
   switchMap,
 } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
@@ -25,8 +25,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class CategoryComponent implements OnInit {
   searchString = new FormControl('', [Validators.minLength(3)]);
-  result!: Observable<Post[] | undefined>;
-  category!: Observable<Category>;
+  result!: Observable<Category>;
   loading = true;
   private queryRef!: QueryRef<Pick<Query, 'category'>>;
   private readonly debounce = 400;
@@ -38,7 +37,7 @@ export class CategoryComponent implements OnInit {
     private router: Router,
     private title: Title
   ) {
-    activatedRoute.params.subscribe(({ id }) => {
+    activatedRoute.params.pipe(untilDestroyed(this)).subscribe(({ id }) => {
       id = id.slice(id.lastIndexOf('-') + 1);
       this.id = id;
       this.queryRef = this.apollo.watchQuery<Pick<Query, 'category'>>({
@@ -49,12 +48,13 @@ export class CategoryComponent implements OnInit {
       });
 
       this.result = this.queryRef.valueChanges.pipe(
-        map((result) => result.data.category.posts),
-        pluck('items'),
-        switchMap(async (data: any) => {
+        map((result) => result.data.category),
+        switchMap(async (data: Category) => {
+          this.title.setTitle(data.name + ' | ' + "Oğuz Türkay's blog");
           this.loading = false;
           return data;
         }),
+        shareReplay(1),
         catchError((err) => {
           if (err?.graphQLErrors[0]?.status === 404) {
             this.router.navigateByUrl('404');
@@ -65,16 +65,6 @@ export class CategoryComponent implements OnInit {
           return throwError(err.message);
         })
       );
-
-      this.category = this.queryRef.valueChanges
-        .pipe(
-          map((result) => result.data.category),
-          switchMap(async (data: Category) => {
-            this.title.setTitle(data.name + ' | ' + "Oğuz Türkay's blog");
-            return data;
-          })
-        )
-        .pipe(untilDestroyed(this));
     });
   }
 

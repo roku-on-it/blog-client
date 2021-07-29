@@ -7,16 +7,20 @@
   </mat-error>
 </mat-form-field>
 
-<ng-container *ngIf="loading; then isLoading; else loaded"></ng-container>
+<h3 *ngIf="(result | async)?.posts?.items?.length === 0">
+  Looks like there are no results matching your search.
+  <i>*Cricket sounds...*</i>
+</h3>
 
+<ng-container *ngIf="loading; then isLoading; else loaded"></ng-container>
 <ng-template #isLoading>
   <app-post-skeleton></app-post-skeleton>
 </ng-template>
 <ng-template #loaded>
-  <mat-card *ngFor="let post of result | async">
+  <mat-card *ngFor="let post of (result | async)?.posts?.items">
     <mat-card-header>
       <img
-        [src]="post.user.avatarUrl"
+        [src]="post.user.avatarUrl || '/assets/cute-kitten-avatar.png'"
         mat-card-avatar
         alt="Avatar of the post author"
       />
@@ -40,6 +44,15 @@
         {{ post.content }}
       </p>
     </mat-card-content>
+    <mat-card-actions>
+      <a
+        [routerLink]="['../../posts/', post.slug + '-' + post.id]"
+        color="primary"
+        mat-stroked-button
+        >Read the full article
+        <mat-icon>read_more</mat-icon>
+      </a>
+    </mat-card-actions>
   </mat-card>
 </ng-template>
 
@@ -47,8 +60,8 @@
 
 <mat-paginator
   (page)="onPageChange($event)"
-  *ngIf="searchString.value.length < 3 && (result | async)?.length"
-  [length]="(category | async)?.posts?.total"
+  *ngIf="searchString.value.length < 3 && (result | async)?.posts?.items?.length"
+  [length]="(result | async)?.posts?.total"
   [pageSizeOptions]="[5, 10, 25]"
   class="mat-elevation-z16"
 ></mat-paginator>

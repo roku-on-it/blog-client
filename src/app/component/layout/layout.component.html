@@ -49,7 +49,7 @@
         <mat-icon>lunch_dining</mat-icon>
       </button>
       <span class="spacer"></span>
-      <span>Blog</span>
+      <span>{{title.getTitle().slice(0, title.getTitle().lastIndexOf('|') - 1)}}</span>
       <span class="spacer"></span>
     </mat-toolbar>
     <div class="router-wrapper">

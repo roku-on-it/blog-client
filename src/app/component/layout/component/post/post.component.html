@@ -1,0 +1,68 @@
+<h1>{{ (post | async)?.title }}</h1>
+<section>
+  <mat-card>
+    <mat-card-header>
+      <img
+        [src]="(post | async)?.user?.avatarUrl || '/assets/cute-kitten-avatar.png'"
+        mat-card-avatar
+        alt="Avatar of the post author"
+      />
+      <mat-card-title
+        >Author:
+        <span>{{ (post | async)?.user?.fullName }}</span></mat-card-title
+      >
+      <mat-card-subtitle
+        >Date posted:
+        {{
+          (post | async)?.createdAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        *ngIf="(post | async)?.createdAt !== (post | async)?.updatedAt"
+        >Last update on:
+        {{
+          (post | async)?.updatedAt | date: "EEEE, MMMM d, y":"+0600":"en-US"
+        }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+      >Category:
+        <a
+          [routerLink]="[
+            '../../categories/',
+            (post |async)?.category?.slug + '-' + (post |async)?.category?.id
+          ]"
+        >{{ (post |async)?.category?.name }}</a
+        >
+      </mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</section>
+<article>
+{{(post | async)?.content}}
+</article>
+<span class="spacer"></span>
+<section>
+  <mat-accordion *ngIf="(post | async)?.sources?.length">
+    <mat-expansion-panel #panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title
+          >Sources
+          <mat-icon>{{
+            panel.expanded ? "expand_more" : "chevron_right"
+          }}</mat-icon>
+        </mat-panel-title>
+        <mat-panel-description>
+          Click on links to access sources
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <a
+        target="_blank"
+        color="accent"
+        *ngFor="let source of (post | async)?.sources"
+        [href]="source"
+        mat-stroked-button
+        >{{ source }}</a
+      >
+    </mat-expansion-panel>
+  </mat-accordion>
+</section>

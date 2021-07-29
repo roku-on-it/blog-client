@@ -19,6 +19,11 @@ const routes: Routes = [
             'src/app/component/layout/component/category/category.module'
           ).then((m) => m.CategoryModule),
       },
+      {
+        path: 'posts/:id',
+        loadChildren: () =>
+          import('./component/post/post.module').then((m) => m.PostModule),
+      },
       { path: '', redirectTo: 'home' },
     ],
   },
@@ -34,7 +39,6 @@ const routes: Routes = [
         (m) => m.UnexpectedErrorModule
       ),
   },
-  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({

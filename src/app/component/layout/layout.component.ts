@@ -13,6 +13,7 @@ import {
 } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 interface NavItem {
   label: string;
@@ -39,7 +40,11 @@ export class LayoutComponent implements OnInit {
   private queryRef!: QueryRef<Pick<Query, 'categories'>, QueryCategoriesArgs>;
   private readonly debounce = 400;
 
-  constructor(private apollo: Apollo, private router: Router) {
+  constructor(
+    private apollo: Apollo,
+    private router: Router,
+    public title: Title
+  ) {
     this.queryRef = apollo.watchQuery<
       Pick<Query, 'categories'>,
       QueryCategoriesArgs

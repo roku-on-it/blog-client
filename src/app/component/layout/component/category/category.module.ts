@@ -12,6 +12,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { PostSkeletonComponent } from 'src/app/shared/component/post-skeleton/post-skeleton.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [CategoryComponent, PostSkeletonComponent],
@@ -26,6 +27,7 @@ import { PostSkeletonComponent } from 'src/app/shared/component/post-skeleton/po
     NgxSkeletonLoaderModule,
     MatIconModule,
     MatListModule,
+    MatButtonModule,
   ],
   exports: [CategoryComponent, PostSkeletonComponent],
 })

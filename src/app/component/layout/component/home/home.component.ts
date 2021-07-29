@@ -15,6 +15,7 @@ import {
 import { untilDestroyed } from '@ngneat/until-destroy';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,12 @@ export class HomeComponent implements OnInit {
   private queryRef!: QueryRef<Pick<Query, 'posts'>>;
   private readonly debounce = 400;
 
-  constructor(private apollo: Apollo, private router: Router) {
+  constructor(
+    private apollo: Apollo,
+    private router: Router,
+    private title: Title
+  ) {
+    this.title.setTitle("Recent posts | Oğuz Türkay's blog");
     this.queryRef = this.apollo.watchQuery<
       Pick<Query, 'posts'>,
       QueryPostsArgs
