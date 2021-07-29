@@ -132,6 +132,8 @@ input ListPost {
 }
 
 input ListUser {
+  pageIndex: Float
+  pageSize: Float
   query: String = ""
 }
 

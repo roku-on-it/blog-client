@@ -79,6 +79,8 @@ export type ListPost = {
 };
 
 export type ListUser = {
+  pageIndex?: Maybe<Scalars['Float']>;
+  pageSize?: Maybe<Scalars['Float']>;
   query?: Maybe<Scalars['String']>;
 };
 
