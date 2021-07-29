@@ -14,6 +14,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 interface NavItem {
   label: string;
@@ -21,6 +22,7 @@ interface NavItem {
   icon?: string;
 }
 
+@UntilDestroy()
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -63,21 +65,25 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Not killing the subscription here because layout component is always mounted
     this.searchString.valueChanges
       .pipe(
         debounceTime(this.debounce),
         distinctUntilChanged(),
         switchMap((query: string) => {
-          this.loading = true;
-          return this.queryRef.setVariables({
-            filter: { query },
-          });
+          if (this.searchString.valid) {
+            this.loading = true;
+            return this.queryRef.setVariables({
+              filter: { query },
+            });
+          }
+
+          return this.queryRef.setVariables({});
         }),
         switchMap(({ data }: any) => {
           this.loading = false;
           return data.categories;
-        })
+        }),
+        untilDestroyed(this)
       )
       .subscribe(($data) => $data);
   }
