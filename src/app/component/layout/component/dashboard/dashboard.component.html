@@ -1,0 +1,63 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="push">
+    <mat-nav-list>
+      <a
+        #routerLinkActiveInstance="routerLinkActive"
+        *ngFor="let route of staticRoutes"
+        [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
+        [class.list-item-active]="routerLinkActiveInstance.isActive"
+        [routerLink]="route.path"
+        (click)="drawer.close()"
+        mat-list-item
+        routerLinkActive
+      >
+        <mat-icon mat-list-icon>{{ route.icon }}</mat-icon>
+        <span>{{ route.label }}</span>
+      </a>
+      <mat-divider></mat-divider>
+      <h3>Categories</h3>
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Search category</mat-label>
+        <input [formControl]="searchString" [minLength]="3" autocomplete="off" matInput />
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-error *ngIf="searchString.invalid && searchString.touched">
+          Search value must be at least 3 characters long
+        </mat-error>
+      </mat-form-field>
+      <mat-progress-bar
+        *ngIf="loading"
+        color="accent"
+        mode="query"
+      ></mat-progress-bar>
+      <a
+        #routerLinkActiveInstance="routerLinkActive"
+        (click)="drawer.close()"
+        *ngFor="let category of result | async"
+        [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
+        [class.list-item-active]="routerLinkActiveInstance.isActive"
+        [routerLink]="['categories', category.slug + '-' + category.id]"
+        mat-list-item
+        routerLinkActive
+      >
+        <span>{{ category.name }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar class="mat-elevation-z16">
+      <button (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon>lunch_dining</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <span>Administration Panel</span>
+      <span class="spacer"></span>
+      <button (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon color="warn">power_settings_new</mat-icon>
+      </button>
+
+    </mat-toolbar>
+    <div class="router-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

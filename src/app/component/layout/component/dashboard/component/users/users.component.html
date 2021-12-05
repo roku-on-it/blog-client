@@ -1,0 +1,55 @@
+<div>
+  <mat-form-field color="accent" appearance="fill">
+    <mat-label>Filter users</mat-label>
+    <input #input [formControl]="searchString" [minLength]="3" autocomplete="off" matInput />
+    <mat-error *ngIf="searchString.invalid && searchString.touched">
+      Search value must be at least 3 characters long
+    </mat-error>
+  </mat-form-field>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Username</th>
+        <td mat-cell *matCellDef="let user"> {{user.username}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef>Full name</th>
+        <td mat-cell *matCellDef="let user"> {{user.fullName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="postCount">
+        <th mat-header-cell *matHeaderCellDef>Post count</th>
+        <td mat-cell *matCellDef="let user"> {{user.posts.total}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No users matching the filter "{{input.value}}" <i>*Cricket sounds...*</i></td>
+      </tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="total | async"
+    [pageSizeOptions]="[5, 10, 25]"
+    class="mat-elevation-z16"
+  ></mat-paginator>
+
+
+</div>

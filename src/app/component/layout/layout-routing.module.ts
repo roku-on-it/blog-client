@@ -28,6 +28,13 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./component/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+  },
+  {
     path: '404',
     loadChildren: () =>
       import('../not-found/not-found.module').then((m) => m.NotFoundModule),
@@ -39,6 +46,7 @@ const routes: Routes = [
         (m) => m.UnexpectedErrorModule
       ),
   },
+  { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({
